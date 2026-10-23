@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Teal Lanterns — Entry Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0b0c;--fg:#e8e6e1;--muted:#8e9395;--dim:#5e6466;--card:#111314;--card-hi:#161a1b;--line:#242829;--line-hi:#343a3c;--accent:#81989a;--on:#0a0b0c;--ok:#7a9c7a;--warn:#b8a266;--bad:#a06a6a}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f4f1;--fg:#141616;--muted:#575d5e;--dim:#8b9192;--card:#fff;--card-hi:#fafaf7;--line:#dfe0dc;--line-hi:#c6c8c2;--accent:#4f6b6e;--on:#f4f4f1;--ok:#4b7a4b;--warn:#8a7436;--bad:#8a4d4d}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"EB Garamond",Georgia,serif;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 24px}
+button,input,select,textarea{font-family:inherit}
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);font-family:"Playfair Display",Georgia,serif;letter-spacing:.08em;font-size:14px;text-transform:uppercase}
+nav .brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none}
+nav .mark{color:var(--accent)}
+nav .links{display:flex;gap:18px}
+nav .links a{font-family:system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--muted);text-decoration:none}
+nav .links a:hover{color:var(--accent)}
+.hero{padding:80px 0 48px;text-align:center}
+.eyebrow,.section-head{font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin:0 0 20px}
+.hero h1{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:clamp(30px,5.5vw,46px);line-height:1.12;letter-spacing:-.015em;margin:0 0 20px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.lede{max-width:480px;margin:0 auto 32px;color:var(--muted);font-size:19px}
+.btn{display:inline-block;background:var(--accent);color:var(--on);font-family:system-ui,sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:14px 26px;border:1px solid var(--accent);border-radius:2px;cursor:pointer;transition:all .18s;text-decoration:none}
+.btn:hover{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line-hi)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent);background:transparent}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.section{padding:56px 0;border-top:1px solid var(--line)}
+.section h2{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:clamp(24px,4vw,32px);line-height:1.2;margin:0 0 16px}
+.section > p{color:var(--muted);margin:0 0 20px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:32px 26px;margin:28px 0}
+@media(max-width:520px){.panel{padding:24px 18px}}
+.quiz-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.quiz-part{font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.quiz-count{font-family:system-ui,sans-serif;font-size:11px;letter-spacing:.14em;color:var(--dim)}
+.bar{height:2px;background:var(--line);margin-bottom:26px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s ease}
+.q{font-family:"Playfair Display",Georgia,serif;font-weight:500;font-size:21px;line-height:1.4;margin:0 0 20px}
+@media(max-width:520px){.q{font-size:18px}}
+.opt{display:block;width:100%;text-align:left;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:2px;padding:13px 16px;margin-bottom:8px;font-size:16px;line-height:1.5;cursor:pointer;transition:all .15s}
+.opt:hover,.opt:focus-visible{border-color:var(--accent);background:var(--card-hi);outline:none}
+.field{width:100%;padding:12px 14px;margin-bottom:10px;border:1px solid var(--line);border-radius:2px;background:var(--bg);color:var(--fg);font-size:16px}
+.field:focus{border-color:var(--accent);outline:none}
+.verdict{text-align:center;padding:4px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.verdict .label{font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.verdict h2{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:clamp(28px,6vw,40px);line-height:1.1;margin:0 0 10px}
+.verdict.pass h2{color:var(--ok)}.verdict.beg h2{color:var(--accent)}.verdict.fail h2{color:var(--bad)}
+.verdict p{color:var(--muted);margin:0 auto;max-width:440px;font-size:16px}
+.sum{margin:0 0 20px}
+.sum div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.sum div:first-child{border-top:1px solid var(--line)}
+.sum b{font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);align-self:center}
+.sum span{text-align:right;font-variant-numeric:tabular-nums}
+.sum span.low{color:var(--bad)}.sum span.mid{color:var(--warn)}.sum span.high{color:var(--ok)}
+.note{padding:14px 16px;border-left:2px solid var(--accent);background:var(--card-hi);font-size:15px;color:var(--muted);margin-top:20px}
+.note b{color:var(--fg)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+footer{padding:44px 0;border-top:1px solid var(--line);text-align:center}
+.oath{font-style:italic;font-size:15px;line-height:1.9;color:var(--muted);max-width:400px;margin:0 auto}
+.oath span{display:block}
+.oath .a{color:var(--accent);font-style:normal}
+.hide{display:none!important}
+::selection{background:var(--accent);color:var(--on)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="brand" href="#top"><span class="mark">◆</span> The Teal Lanterns</a>
+  <div class="links"><a href="#apply">Entry Test</a></div>
+</nav>
+
+<header class="hero" id="top">
+  <p class="eyebrow">A private fellowship</p>
+  <h1>We do not fix a broken society.<br>We <em>build</em> an under-built one.</h1>
+  <p class="lede">30 questions. Character is the gate. Knowledge can be taught.</p>
+  <button class="btn" id="start">Take the entry test</button>
+</header>
+
+<section class="section" id="apply">
+  <p class="section-head">Entry test</p>
+  <h2>The Gatehouse.</h2>
+  <p>This assessment tests your Character, Foundations, and Strategy. If you fail Character, you are automatically rejected.</p>
+  <div class="panel hide" id="quiz">
+    <div class="quiz-head"><span class="quiz-part" id="part">&nbsp;</span><span class="quiz-count" id="meta">&nbsp;</span></div>
+    <div class="bar"><i id="prog"></i></div>
+    <div id="body"></div>
+  </div>
+</section>
+
+<footer>
+  <p class="oath">
+    <span>In darkest day, in loneliest night,</span>
+    <span>no one shall stop what is right.</span>
+    <span>And those who face — <span class="a">beware our might</span> —</span>
+    <span>like stars burning bright, the Teal Lanterns light.</span>
+  </p>
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+function T(q,o,s){return{q:q,o:o,s:s}}
+
+const CHARACTER=[
+T("A teammate makes a costly mistake. What is your first response?",["Publicly blame them","Take responsibility for the team and fix the issue","Remove them immediately","Complain privately"],"0300"),
+T("You fail an important examination. What next?",["Blame the system","Quit entirely","Analyze weaknesses and build a new plan","Wait until motivation returns"],"0030"),
+T("A promise becomes inconvenient. What do you do?",["Ignore it","Keep it or renegotiate honestly","Look for loopholes","Let others solve it"],"0300"),
+T("A respected mentor criticizes your work. What is the best response?",["Take it personally","Defend yourself immediately","Ask specific questions and improve","Avoid the mentor"],"0030"),
+T("You discover evidence proving your opinion wrong.",["Ignore it","Attack the source","Update your beliefs","Change the topic"],"0030"),
+T("A project is failing. What matters most?",["Finding someone to blame","Preserving appearances","Understanding reality","Avoiding discomfort"],"0030"),
+T("What earns leadership?",["Age","Popularity","Competence and trust","Aggression"],"0030"),
+T("A junior member asks for help.",["Ignore them","Help if time permits and knowledge allows","Mock them","Tell someone else to help"],"0300"),
+T("Which trait is most dangerous?",["Lack of talent","Lack of resources","Lack of responsibility","Lack of connections"],"0030"),
+T("What is honor?",["Reputation","Fear from others","Keeping your word when it costs you","Winning arguments"],"0030")
+];
+
+const FOUNDATIONS=[
+T("What is inflation?",["Prices rising over time","Prices falling over time","A tax","Loan interest"],"3000"),
+T("What is compound interest?",["Interest on interest","Fixed fees","Government borrowing","A tax system"],"3000"),
+T("What is opportunity cost?",["The next best alternative lost","A startup expense","Sales tax","Market value"],"3000"),
+T("Open-source software means?",["Code anyone can inspect","Free from bugs","Always free","Private software"],"3000"),
+T("A correlation does not necessarily imply?",["Growth","Profit","Causation","Competition"],"0030"),
+T("Executive, Legislative and?",["Judicial","Military","Economic","Academic"],"3000"),
+T("What protects an online account most effectively?",["Strong unique password","Fast internet","Large storage","Expensive hardware"],"3000"),
+T("Why do companies invest in training?",["Compliance only","Long-term productivity","Marketing","Tax avoidance"],"0300"),
+T("Which asset may appreciate over time?",["Knowledge","Fast fashion","Lottery tickets","Consumer debt"],"3000"),
+T("What compounds most over decades?",["Consistent learning","Impulse spending","Internet arguments","Trend chasing"],"3000")
+];
+
+const STRATEGY=[
+T("You inherit a profitable family business.",["Sell it immediately","Preserve and modernize it","Ignore it","Extract as much cash as possible"],"0300"),
+T("You receive ₹10 lakh at age 20.",["Luxury purchases","Emergency fund and productive investment","Speculation","Spend it celebrating"],"0300"),
+T("Technology makes your current skill obsolete.",["Complain","Wait","Learn and adapt","Deny reality"],"0030"),
+T("Which decision best reflects long-term thinking?",["Immediate pleasure","Maximum attention","Compounding capability","Following trends"],"0030"),
+T("You have one free year.",["Consume entertainment","Develop valuable skills and projects","Do nothing","Wait for opportunities"],"0300")
+];
+
+const STEM=[
+T("What makes a scientific theory valuable?",["Popularity","Evidence and predictive power","Age","Authority"],"0300"),
+T("What is the first step in solving an engineering problem?",["Build immediately","Understand the requirements","Buy tools","Ask social media"],"0300"),
+T("A model has 95% accuracy. What else matters?",["Context and failure cases","Nothing","Brand reputation","Marketing"],"3000"),
+T("Which skill compounds most for engineers?",["Problem-solving","Memorization only","Trend following","Gaming"],"3000"),
+T("What creates technological progress?",["Experimentation","Luck","Tradition","Authority"],"3000")
+];
+
+const PPE=[
+T("What is the primary purpose of a state?",["Protection and order","Wealth alone","Tradition alone","Expansion"],"3000"),
+T("Why is separation of powers important?",["Prevent concentration of power","Increase taxes","Reduce voting","Expand bureaucracy"],"3000"),
+T("Which policy should be favored?",["Popular today","Sustainable long term","Emotionally appealing","Most controversial"],"0300"),
+T("Diplomacy is primarily about?",["Avoiding communication","Managing interests peacefully","Showing strength only","Winning arguments"],"0300"),
+T("What is legitimacy in governance based on?",["Fear","Trust and acceptance","Wealth","Propaganda"],"0030")
+];
+
+const PARTS=["Character","Foundations","Strategy & Stewardship","Specialization Track"];
+const TOTALQ=30;
+const TO="hrishikeshrprabhu29@gmail.com";
+const STORE_KEY="teal_test_v5";
+
+const $=id=>document.getElementById(id);
+const body=$("body"),meta=$("meta"),prog=$("prog"),partEl=$("part"),box=$("quiz");
+
+let order=[],i=0,info={};
+let scores={char:0,found:0,strat:0,bonus:0};
+
+function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function mk(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
+function partOf(n){return n<10?0:n<20?1:n<25?2:3}
+
+function begin(){
+  box.classList.remove("hide");
+  $("start").classList.add("hide");
+  const saved=loadProgress();
+  if(saved&&saved.i>0&&saved.i<TOTALQ){
+    resumeView(saved);
+  }else{
+    intake();
+  }
+  box.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function intake(){
+  partEl.textContent="Intake";meta.textContent="";prog.style.width="0";body.innerHTML="";
+  const nm=mk("input","field");nm.placeholder="Your name";nm.autocomplete="name";
+  const em=mk("input","field");em.type="email";em.placeholder="Your email";em.autocomplete="email";
+  const sl=mk("select","field");
+  [["","Preferred subject"],["STEM","STEM"],["PPE","PPE (philosophy, politics, economics)"]].forEach(o=>{
+    const op=mk("option",null,o[1]);op.value=o[0];sl.appendChild(op);
+  });
+  const b=mk("button","btn","Start");b.type="button";b.disabled=true;
+  function chk(){b.disabled=!(nm.value.trim().length>1&&/^\S+@\S+\.\S+$/.test(em.value.trim())&&sl.value)}
+  nm.oninput=em.oninput=chk;sl.onchange=chk;
+  
+  b.onclick=()=>{
+    info={name:nm.value.trim(),email:em.value.trim(),subject:sl.value};
+    const bonusTrack = info.subject === "STEM" ? STEM : PPE;
+    order=shuffle(CHARACTER).concat(shuffle(FOUNDATIONS),shuffle(STRATEGY),shuffle(bonusTrack));
+    i=0;scores={char:0,found:0,strat:0,bonus:0};
+    show();
+  };
+  [nm,em,sl,b].forEach(x=>body.appendChild(x));
+}
+
+function show(){
+  if(i>=order.length){finish();return}
+  const q=order[i];
+  const part=partOf(i);
+  
+  partEl.textContent="Part "+(part+1)+" · "+PARTS[part];
+  meta.textContent=(i+1)+" / "+TOTALQ;
+  prog.style.width=(i/TOTALQ*100)+"%";
+  body.innerHTML="";
+  body.appendChild(mk("p","q",q.q));
+
+  const opts=q.o.map((txt,j)=>({txt,score:+(q.s[j]||0)}));
+  const present=shuffle(opts);
+  
+  present.forEach(op=>{
+    const btn=mk("button","opt",op.txt);
+    btn.type="button";
+    btn.onclick=()=>{
+      if(part===0&&op.score>=3)scores.char++;
+      if(part===1&&op.score>=3)scores.found++;
+      if(part===2&&op.score>=3)scores.strat++;
+      if(part===3&&op.score>=3)scores.bonus++;
+      i++;saveProgress();show();
+    };
+    body.appendChild(btn);
+  });
+}
+
+function finish(){
+  clearProgress();
+  prog.style.width="100%";
+  partEl.textContent="Result";meta.textContent="";
+  body.innerHTML="";
+
+  // Pass criteria: Character is the gate. 
+  let tier,label,msg;
+  
+  if(scores.char < 7){
+    tier="fail"; label="Not Yet";
+    msg="Automatic rejection. Your answers on character and honor fall below the standard. The Code is not a suggestion.";
+  } else if(scores.char >= 7 && scores.found >= 7 && scores.strat >= 3){
+    tier="pass"; label="Accepted";
+    msg="You meet the standard. Your character and foundations are solid. Reply within seven days with one linkable artifact.";
+  } else {
+    tier="beg"; label="Beginner Track";
+    msg="Your character is strong, but your foundations or strategy need work. Enter the 90-day trial to build up your base.";
+  }
+
+  const v=mk("div","verdict "+tier);
+  v.appendChild(mk("p","label","Assessment"));
+  v.appendChild(mk("h2",null,label));
+  v.appendChild(mk("p",null,msg));
+  body.appendChild(v);
+
+  // Scoreboard
+  const rows=[
+    ["Character (Gate)",scores.char+" / 10"],
+    ["Foundations",scores.found+" / 10"],
+    ["Strategy",scores.strat+" / 5"],
+    [info.subject+" Bonus",scores.bonus+" / 5"]
+  ];
+  const sum=mk("div","sum");
+  rows.forEach(([lab,val])=>{
+    const d=mk("div");
+    d.appendChild(mk("b",null,lab));
+    const s=mk("span",null,val);
+    const [n,max]=val.split("/").map(x=>+x.trim());
+    const r=n/max;
+    s.classList.add(r>=.8?"high":r>=.6?"mid":"low");
+    d.appendChild(s);sum.appendChild(d);
+  });
+  body.appendChild(sum);
+
+  const summary=
+    "Teal Lanterns — Entry Result\n\n"
+    +"Name: "+info.name+"\n"
+    +"Email: "+info.email+"\n"
+    +"Subject: "+info.subject+"\n\n"
+    +"Verdict: "+label+"\n"
+    +"Character: "+scores.char+"/10\n"
+    +"Foundations: "+scores.found+"/10\n"
+    +"Strategy: "+scores.strat+"/5\n"
+    +"Bonus: "+scores.bonus+"/5\n"
+    +"Date: "+new Date().toLocaleString();
+
+  const actions=mk("div","actions");
+  const mail=mk("a","btn","Send to the panel");
+  mail.href="mailto:"+TO+"?subject="+encodeURIComponent("Application — "+info.name)+"&body="+encodeURIComponent(summary);
+  actions.appendChild(mail);
+
+  const copy=mk("button","btn ghost","Copy result");
+  copy.type="button";
+  copy.onclick=()=>{
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(summary).then(()=>{
+        copy.textContent="Copied";
+        setTimeout(()=>{copy.textContent="Copy result"},1600);
+      });
+    }
+  };
+  actions.appendChild(copy);
+  body.appendChild(actions);
+
+  if(tier==="beg"){
+    const n=mk("div","note");
+    n.appendChild(mk("b",null,"The 90-day trial: "));
+    n.appendChild(document.createTextNode("pick one skill (5 hrs/week), one body metric (tracked weekly), one artifact you ship by day 90. Report honest numbers. That is your admission."));
+    body.appendChild(n);
+  }
+  box.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function resumeView(saved){
+  partEl.textContent="Resume";meta.textContent="";prog.style.width=(saved.i/TOTALQ*100)+"%";
+  body.innerHTML="";
+  body.appendChild(mk("p","q","You have progress saved."));
+  body.appendChild(mk("p",null,"Question "+(saved.i+1)+" of "+TOTALQ+" · "+saved.info.name));
+  const r=mk("button","btn","Resume");r.type="button";
+  r.onclick=()=>{
+    i=saved.i;scores=saved.scores;info=saved.info;order=saved.order;show();
+  };
+  const f=mk("button","btn ghost","Start over");f.type="button";f.style.marginLeft="10px";
+  f.onclick=()=>{clearProgress();intake()};
+  body.appendChild(r);body.appendChild(f);
+}
+
+function saveProgress(){
+  try{localStorage.setItem(STORE_KEY,JSON.stringify({i,scores,info,order}))}catch(e){}
+}
+function loadProgress(){
+  try{
+    const s=localStorage.getItem(STORE_KEY);
+    if(!s)return null;
+    const d=JSON.parse(s);
+    if(!d||typeof d.i!=="number"||!Array.isArray(d.order)||d.order.length!==TOTALQ)return null;
+    return d;
+  }catch(e){return null}
+}
+function clearProgress(){try{localStorage.removeItem(STORE_KEY)}catch(e){}}
+
+$("start").addEventListener("click",begin);
+</script>
+</body>
+</html>
