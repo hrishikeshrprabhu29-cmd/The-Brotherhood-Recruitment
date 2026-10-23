@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Brotherhood</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0b0c;--fg:#e8e6e1;--muted:#8e9395;--dim:#5e6466;--card:#111314;--card-hi:#161a1b;--line:#242829;--line-hi:#343a3c;--accent:#81989a;--on:#0a0b0c;--ok:#7a9c7a;--warn:#b8a266;--bad:#a06a6a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f4f1;--fg:#141616;--muted:#575d5e;--dim:#8b9192;--card:#fff;--card-hi:#fafaf7;--line:#dfe0dc;--line-hi:#c6c8c2;--accent:#4f6b6e;--on:#f4f4f1;--ok:#4b7a4b;--warn:#8a7436;--bad:#8a4d4d}}
+:root[data-theme="light"]{--bg:#f4f4f1;--fg:#141616;--muted:#575d5e;--dim:#8b9192;--card:#fff;--card-hi:#fafaf7;--line:#dfe0dc;--line-hi:#c6c8c2;--accent:#4f6b6e;--on:#f4f4f1;--ok:#4b7a4b;--warn:#8a7436;--bad:#8a4d4d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"EB Garamond",Georgia,serif;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 24px}
+button,input,select,textarea{font-family:inherit}
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);font-family:"Playfair Display",Georgia,serif;letter-spacing:.08em;font-size:14px;text-transform:uppercase}
+nav .brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none}
+nav .mark{color:var(--accent)}
+nav .links a{font-family:system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--muted);text-decoration:none}
+nav .links a:hover{color:var(--accent)}
+.hero{padding:88px 0 64px;text-align:center}
+.eyebrow,.section-head{font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin:0 0 20px}
+.hero h1{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:clamp(38px,8vw,64px);line-height:1.1;letter-spacing:-.015em;margin:0 0 20px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.lede{max-width:480px;margin:0 auto 36px;color:var(--muted);font-size:20px}
+.btn{display:inline-block;background:var(--accent);color:var(--on);font-family:system-ui,sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:14px 26px;border:1px solid var(--accent);border-radius:2px;cursor:pointer;transition:all .18s}
+.btn:hover{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.section{padding:56px 0;border-top:1px solid var(--line)}
+.section h2{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:clamp(26px,4vw,34px);line-height:1.2;margin:0 0 16px}
+.section p{color:var(--muted);margin:0 0 20px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:36px 28px;margin:32px 0}
+@media(max-width:520px){.panel{padding:26px 18px}}
+.quiz-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.quiz-part{font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.quiz-count{font-family:system-ui,sans-serif;font-size:11px;letter-spacing:.14em;color:var(--dim)}
+.bar{height:2px;background:var(--line);margin-bottom:28px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s ease}
+.q{font-family:"Playfair Display",Georgia,serif;font-weight:500;font-size:22px;line-height:1.4;margin:0 0 22px}
+@media(max-width:520px){.q{font-size:19px}}
+.opt{display:block;width:100%;text-align:left;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:2px;padding:14px 18px;margin-bottom:8px;font-size:17px;line-height:1.5;cursor:pointer;transition:all .15s}
+.opt:hover,.opt:focus-visible{border-color:var(--accent);background:var(--card-hi);outline:none}
+.field{width:100%;padding:13px 14px;margin-bottom:12px;border:1px solid var(--line);border-radius:2px;background:var(--bg);color:var(--fg);font-size:16px}
+.field:focus{border-color:var(--accent);outline:none}
+.verdict{text-align:center;padding:4px 0 24px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.verdict .label{font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.verdict h2{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:clamp(30px,6vw,42px);line-height:1.1;margin:0 0 10px}
+.verdict.pass h2{color:var(--ok)}.verdict.beg h2{color:var(--accent)}.verdict.fail h2{color:var(--bad)}
+.verdict p{color:var(--muted);margin:0 auto;max-width:440px;font-size:16px}
+.archetype{border:1px solid var(--accent);border-radius:2px;padding:16px 20px;margin:0 0 24px;text-align:center}
+.archetype .label{font-family:system-ui,sans-serif;font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.archetype .name{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:24px;margin:0 0 4px}
+.archetype .desc{font-size:15px;color:var(--muted);margin:0}
+.sum{margin:0 0 24px}
+.sum div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px}
+.sum div:first-child{border-top:1px solid var(--line)}
+.sum b{font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);align-self:center}
+.sum span{text-align:right;word-break:break-word}
+.sum span.low{color:var(--bad)}.sum span.mid{color:var(--warn)}.sum span.high{color:var(--ok)}
+.note{padding:14px 16px;border-left:2px solid var(--accent);background:var(--card-hi);font-size:15px;color:var(--muted)}
+.note b{color:var(--fg)}
+footer{padding:48px 0;border-top:1px solid var(--line);text-align:center;font-family:system-ui,sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.hide{display:none!important}
+::selection{background:var(--accent);color:var(--on)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="brand" href="#top"><span class="mark">&#9670;</span> The Brotherhood</a><div class="links"><a href="#apply">Apply</a></div></nav>
+<header class="hero" id="top">
+<p class="eyebrow">Brotherhood</p>
+<h1>Join the <em>Brotherhood</em></h1>
+<p class="lede">A place where you can reach your peak.</p>
+<button class="btn" id="start">Take the test</button>
+</header>
+<section class="section" id="apply">
+<p class="section-head">Entry test</p>
+<h2>25 questions. About 10 minutes.</h2>
+<p>Basic knowledge only. No tricks. Answer honestly.</p>
+<div class="panel hide" id="quiz">
+<div class="quiz-head"><span class="quiz-part" id="part">&nbsp;</span><span class="quiz-count" id="meta">&nbsp;</span></div>
+<div class="bar"><i id="prog"></i></div>
+<div id="body"></div>
+</div>
+</section>
+<footer>&#9670; &nbsp; The Brotherhood &nbsp; &#9670;</footer>
+</div>
+<script>
+function T(q,o,s){return{q:q,o:o,s:s}}
+var QS=[
+T("You inherit a substantial estate. What is your move?",["Sell for quick cash","Maintain exactly as is","Modernize and expand it","Fight for more assets"],"0030"),
+T("You launch a project and get zero sales. What next?",["Quit and start over","Blame the current market","Analyze data for flaws","Spend more money on ads"],"0030"),
+T("A senior figure calls your idea naive. Reaction?",["Defend it on the spot","Shut down and withdraw","Ask for specific flaws","Complain to peers later"],"0030"),
+T("Your project partner pulls out. Team panics. Move?",["Vent frustration to team","Step back to process","Assign tasks to stabilize","Quietly look for exits"],"0030"),
+T("You realize the group isn’t a fit. Action?",["Ghost the group entirely","Start a whisper campaign","Have a dignified exit","Stay out of obligation"],"0030"),
+T("What does “bias” mean?",["Unfair leaning toward something","Complete honesty","A type of math","Strong evidence"],"3000"),
+T("A fact is something that is?",["Provably true","Strongly believed","Popular online","Said by one expert"],"3000"),
+T("Ice cream sales and sunburns both rise in summer. Why?",["Summer sun causes both","Ice cream causes sunburn","Sunburn boosts ice cream sales","They are unrelated"],"3000"),
+T("At what temperature does water boil (Celsius)?",["100 degrees","50 degrees","0 degrees","200 degrees"],"3000"),
+T("What do plants absorb for photosynthesis?",["Carbon dioxide","Pure oxygen","Nitrogen only","Helium gas"],"3000"),
+T("What force pulls objects toward Earth?",["Gravity","Magnetism","Friction","Static electricity"],"3000"),
+T("What is a password mainly for?",["Protecting your account","Speeding up internet","Saving storage space","Updating your software"],"3000"),
+T("What is the internet?",["A global network","One giant computer","A type of software","A search engine"],"3000"),
+T("Open source software means?",["Code anyone can view","Free of all viruses","Code kept secret","Software sold cheaply"],"3000"),
+T("What is inflation?",["Prices rising over time","Prices falling over time","Interest on loans","A type of tax"],"3000"),
+T("Compound interest means?",["Interest earns more interest","Interest paid only once","A fixed monthly fee","Interest that never grows"],"3000"),
+T("What is opportunity cost?",["The next best option lost","The price tag","Cost of starting up","A sales tax"],"3000"),
+T("Executive, legislative, and what other branch?",["Judicial","Military","Financial","Educational"],"3000"),
+T("All cats are animals. Tom is a cat. So Tom is?",["An animal","A dog","A bird","Not an animal"],"3000"),
+T("Democracy means rule by whom?",["The people","One person","The wealthy","The army"],"3000"),
+T("A phone is at 40 percent and loses 10 percent hourly. How long will it last?",["4 hours","10 hours","1 hour","40 hours"],"3000"),
+T("A pizza has 8 slices. You eat 3, a friend eats 2. How many are left?",["3","5","2","6"],"3000"),
+T("What comes next: 2, 4, 8, 16?",["32","24","20","18"],"3000"),
+T("A 100-dollar shirt is 20 percent off. New price?",["80 dollars","20 dollars","120 dollars","90 dollars"],"3000"),
+T("You have one hour and three tasks. Best first step?",["List and prioritize them","Start the easiest one","Wait for motivation","Skip planning entirely"],"3000")
+];
+var TO="hrishikeshrprabhu29@gmail.com",TOTALQ=25;
+var PN=["Part I · Will","Part II · Basics","Part III · Problem solving"];
+var order=[],i=0,P=[0,0,0],info={},start=document.getElementById("start"),box=document.getElementById("quiz"),
+body=document.getElementById("body"),meta=document.getElementById("meta"),prog=document.getElementById("prog"),partEl=document.getElementById("part");
+function shuffle(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t}return a}
+function mk(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt)e.textContent=txt;return e}
+function partOf(n){return n<5?0:(n<20?1:2)}
+function begin(){box.classList.remove("hide");start.classList.add("hide");intake();box.scrollIntoView({behavior:"smooth",block:"start"})}
+function intake(){
+ partEl.textContent="Before you begin";meta.textContent="";body.innerHTML="";prog.style.width="0";
+ var nm=mk("input","field");nm.placeholder="Your name";nm.autocomplete="name";
+ var em=mk("input","field");em.type="email";em.placeholder="Your email";em.autocomplete="email";
+ var sl=mk("select","field");
+ [["","Preferred subject"],["STEM","STEM"],["PPE","PPE (philosophy, politics and economics)"]].forEach(function(o){var op=mk("option","",o[1]);op.value=o[0];sl.appendChild(op)});
+ var b=mk("button","btn","Start");b.type="button";b.disabled=true;
+ function chk(){b.disabled=!(nm.value.trim().length>1&&/^\S+@\S+\.\S+$/.test(em.value.trim())&&sl.value)}
+ nm.oninput=em.oninput=sl.onchange=chk;
+ b.onclick=function(){info={name:nm.value.trim(),email:em.value.trim(),subject:sl.value};order=QS.slice();i=0;P=[0,0,0];show()};
+ [nm,em,sl,b].forEach(function(x){body.appendChild(x)});
+}
+function show(){
+ prog.style.width=(i/TOTALQ*100)+"%";
+ if(i>=order.length){finish();return}
+ var q=order[i],part=partOf(i);
+ partEl.textContent=PN[part];meta.textContent=(i+1)+" / "+TOTALQ;
+ body.innerHTML="";body.appendChild(mk("p","q",q.q));
+ shuffle(q.o.map(function(t,j){return [t,Number(q.s[j])]})).forEach(function(op){
+  var b=mk("button","opt",op[0]);b.type="button";
+  b.onclick=function(){if(op[1]>=3)P[part]++;i++;show()};body.appendChild(b)});
+}
+function cls(v,m){var r=v/m;return r>=.75?"high":(r>=.5?"mid":"low")}
+function finish(){
+ prog.style.width="100%";partEl.textContent="Result";meta.textContent="";body.innerHTML="";
+ var willOk=P[0]>=4,basicsOk=P[1]>=10,psOk=P[2]>=3;
+ var state=willOk&&basicsOk&&psOk?"pass":(willOk?"beg":"fail");
+ var tier=P[1]>=13?"Strong":(P[1]>=10?"Solid":"Beginner");
+ var V={pass:["You’re a fit.","Send this result and we’ll get back to you."],
+  beg:["Beginner.","Good character, a few gaps in the basics. You’d start on a reading program."],
+  fail:["Not quite yet.","Your answers on handling pressure didn’t match what we look for."]}[state];
+ var v=mk("div","verdict "+state);v.appendChild(mk("p","label","Your result"));v.appendChild(mk("h2","",V[0]));v.appendChild(mk("p","",V[1]));body.appendChild(v);
+ var rows=[["Name",info.name],["Email",info.email],["Subject",info.subject],
+  ["Will",P[0]+" / 5",cls(P[0],5)],["Basics",P[1]+" / 15 · "+tier,cls(P[1],15)],["Problem solving",P[2]+" / 5",cls(P[2],5)],
+  ["Date",new Date().toLocaleString()]];
+ var sum=mk("div","sum");
+ rows.forEach(function(r){var d=mk("div");d.appendChild(mk("b","",r[0]));d.appendChild(mk("span",r[2]||"",r[1]));sum.appendChild(d)});
+ body.appendChild(sum);
+ var n=mk("div","note");n.appendChild(mk("b","","Next step: "));
+ n.appendChild(document.createTextNode("screenshot this page and send it to "+TO+". Make sure your name, email and scores are visible."));
+ body.appendChild(n);
+ box.scrollIntoView({behavior:"smooth",block:"start"});
+}
+start.onclick=begin;
+</script>
+</body>
+</html>
